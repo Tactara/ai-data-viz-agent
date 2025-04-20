@@ -40,4 +40,10 @@ def code_interpret(e2b_code_interpreter: Sandbox, code: str) -> Optional[List[An
             print(f"[Code Interpreter ERROR] {exec.error}", file=sys.stderr)
             return None
         return exec.results
-        
+
+def match_code_blocks(llm_response: str) -> str:
+    match = pattern.search(llm_response)
+    if match:
+        code = match.group(1)
+        return code
+    return ""
