@@ -47,3 +47,31 @@ def match_code_blocks(llm_response: str) -> str:
         code = match.group(1)
         return code
     return ""
+
+def chat_with_llm(e2b_code_interpreter: Sandbox, user_message: str, dataset_path: str) -> Tuple[Optional[List[Any]], str]:
+    # Update system prompt to include dataset path information
+    system_prompt = f"""You're a Python data scientist and data visualization expert. You are given a dataset at path '{dataset_path}' and also the user's query.
+You need to analyze the dataset and answer the user's query with a response and you run Python code to solve them.
+IMPORTANT: Always use the dataset path variable '{dataset_path}' in your code when reading the CSV file."""
+
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": user_message},
+    ]
+
+    with st.spinner('Getting response from Together AI LLM model...'):
+        client = Together(api_key=st.session_state.together_api_key)
+        response = client.chat.completions.create(
+            model=st.session_state.model_name,
+            messages=messages,
+        )
+
+        response_message = response.choices[0].message
+        python_code = match_code_blocks(response_message.content)
+        
+        if python_code:
+            code_interpreter_results = code_interpret(e2b_code_interpreter, python_code)
+            return code_interpreter_results, response_message.content
+        else:
+            st.warning(f"Failed to match any Python code in model's response")
+            return None, response_message.content
