@@ -75,3 +75,13 @@ IMPORTANT: Always use the dataset path variable '{dataset_path}' in your code wh
         else:
             st.warning(f"Failed to match any Python code in model's response")
             return None, response_message.content
+
+def upload_dataset(code_interpreter: Sandbox, uploaded_file) -> str:
+    dataset_path = f"./{uploaded_file.name}"
+    
+    try:
+        code_interpreter.files.write(dataset_path, uploaded_file)
+        return dataset_path
+    except Exception as error:
+        st.error(f"Error during file upload: {error}")
+        raise error
