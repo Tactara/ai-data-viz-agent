@@ -1,3 +1,4 @@
+
 # 📊 Tactara AI Data Visualization Agent
 
 **Conversational data exploration, powered by LLMs.**
@@ -35,3 +36,55 @@ Tactara’s AI Data Visualization Agent transforms static datasets into dynamic 
 ```bash
 git clone https://github.com/Tactara/ai-data-visualization-agent.git
 cd ai-data-visualization-agent
+```
+
+### 2. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Set Your API Keys  
+You’ll need:
+
+- [Together AI API Key](https://api.together.ai/signin)  
+- [E2B API Key](https://e2b.dev/docs/legacy/getting-started/api-key)
+
+Input them via the Streamlit sidebar on first run.
+
+### 4. Launch the App
+
+```bash
+streamlit run ai_data_visualisation_agent.py
+```
+
+---
+
+## 📂 Using the Visualization Agent
+
+- Upload a CSV file  
+- Ask a question about the data in plain language  
+- View charts + textual explanations  
+- Ask follow-up questions to refine analysis or change visuals
+
+---
+
+## 🔍 Under the Hood
+
+| Component | Description |
+|----------|-------------|
+| 🧠 **LLMs** | Power natural language understanding & chart generation |
+| 📊 **Visualization Engine** | Matplotlib + Seaborn-based smart plotting |
+| 📂 **Streamlit UI** | Seamless user interface for fast experimentation |
+
+---
+
+## 🧩 Ideal For
+
+- Product & Growth teams analyzing customer behavior  
+- Ops teams surfacing insights from internal reports  
+- Founders needing quick data storytelling without a BI team
+
+---
+
+**Built with ❤️ by [Tactara](https://www.tactara.ai)**
